@@ -59,7 +59,7 @@ let movies = [
 ];
 
 window.onload = function () {
-  let sortedMovies = sortMoviesByRank(movies);
+  let sortedMovies = sortMoviesByAttr(movies, "title");
   // Display Movies list
   displayMovies(sortedMovies);
 };
@@ -121,6 +121,30 @@ function sortMoviesByRank(movies) {
  */
 function sortMoviesByAttr(movies, sortAttr) {
   // CODE GOES HERE
+  // Code from previous sortBestRatingsFirst() function
+  for (let j = 0; j < movies.length - 1; j++) {
+    let max_obj = movies[j];
+    // {
+    //     title: "Fight Club",
+    //     rank: 10,
+    //     id: "tt0137523",
+    // },
+    let max_location = j;
+
+    for (let i = j; i < movies.length; i++) {
+      if (movies[i][sortAttr] > max_obj[sortAttr]) {
+        // Know max AND it's index (location)
+        // If we found and object with higher rank, then replace max_obj with the new object
+        max_obj = movies[i];
+        max_location = i;
+      }
+    }
+    // swap the first and the last
+    movies[max_location] = movies[j]; // --> 10
+    movies[j] = max_obj;
+  }
+
+  return movies;
 }
 
 /**
